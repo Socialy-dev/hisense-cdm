@@ -1484,7 +1484,7 @@ export default function Page() {
             </div>
             {/* Glass card outer frame (Figma design preserved) + interactive QuizContent inside */}
             <div
-              className="-translate-x-1/2 absolute backdrop-blur-[12px] bg-[rgba(14,29,34,0.7)] border-[#00b3ac] border-[1.557px] border-solid h-[872.04px] left-1/2 rounded-[37.373px] top-[158px] w-[1245.771px] overflow-hidden"
+              className="-translate-x-1/2 absolute backdrop-blur-[12px] bg-[rgba(14,29,34,0.7)] border-[#00b3ac] border-[1.557px] border-solid h-[820px] left-1/2 rounded-[28px] top-[180px] w-[780px] overflow-hidden"
               data-node-id="14:757"
               data-name="Glass Card Quiz"
             >
