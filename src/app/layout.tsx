@@ -32,6 +32,13 @@ export const metadata: Metadata = {
     "Sponsor officiel FIFA World Cup 2026. Chez vous, à l'Atelier des Lumières et même au stade, vivez une expérience unique grâce à Hisense.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+};
+
 export default function RootLayout({
   children,
 }: {
