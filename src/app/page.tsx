@@ -8,6 +8,7 @@
 import { ScaleWrapper } from "./scale-wrapper";
 import { QuizContent } from "./quiz-content";
 import { InlineVideoSection } from "./video-player";
+import { MatchTicker } from "./match-ticker";
 
 // Local asset paths (téléchargés depuis Figma)
 const imgRectangle3 = "/images/hero-rect3.png";
@@ -632,86 +633,7 @@ export default function Page() {
                   </div>
                 </div>
               </div>
-              <div
-                className="absolute bg-[#0e1a1f] border-[1.216px] border-[rgba(0,179,172,0.2)] border-solid gap-x-[29.174999237060547px] gap-y-[29.174999237060547px] grid grid-cols-[1fr_463.55px_1fr] grid-rows-[46.19px] h-[116.7px] left-0 min-h-[116.69999694824219px] overflow-clip px-[44.979px] py-[35.253px] rounded-[24.313px] top-[739.1px] w-[1556px]"
-                data-node-id="1:108"
-                data-name="Background+Border"
-              >
-                <div
-                  className="col-start-1 justify-self-stretch relative row-start-1 self-center shrink-0"
-                  data-node-id="1:109"
-                  data-name="Container"
-                >
-                  <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start relative size-full">
-                    <div
-                      className="[word-break:break-word] flex flex-col font-inter font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#b0aea5] text-[14.587px] tracking-[2.1881px] uppercase whitespace-nowrap"
-                      data-node-id="1:110"
-                    >
-                      <p className="leading-[23.34px]">
-                        PROCHAIN MATCH À VIVRE ENSEMBLE
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-start-2 justify-self-stretch relative row-start-1 self-center shrink-0"
-                  data-node-id="1:111"
-                  data-name="Container"
-                >
-                  <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex gap-[29.175px] items-center relative size-full">
-                    <div
-                      className="content-stretch flex flex-col items-center justify-center min-w-[186.29452514648438px] relative shrink-0"
-                      data-node-id="1:112"
-                      data-name="Container"
-                    >
-                      <div
-                        className="[word-break:break-word] flex flex-col font-inter font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#faf9f5] text-[38.9px] text-center tracking-[0.1945px] uppercase whitespace-nowrap"
-                        data-node-id="1:113"
-                      >
-                        <p className="leading-[38.9px]">USA 🇺🇸</p>
-                      </div>
-                    </div>
-                    <div
-                      className="content-stretch flex flex-col items-start relative shrink-0"
-                      data-node-id="1:114"
-                      data-name="Container"
-                    >
-                      <div
-                        className="[word-break:break-word] flex flex-col font-inter font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#00b3ac] text-[29.175px] tracking-[0.1945px] uppercase whitespace-nowrap"
-                        data-node-id="1:115"
-                      >
-                        <p className="leading-[29.175px]">—</p>
-                      </div>
-                    </div>
-                    <div
-                      className="content-stretch flex flex-col items-center justify-center min-w-[202.2921600341797px] relative shrink-0"
-                      data-node-id="1:116"
-                      data-name="Container"
-                    >
-                      <div
-                        className="[word-break:break-word] flex flex-col font-inter font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#faf9f5] text-[38.9px] tracking-[0.1945px] uppercase whitespace-nowrap"
-                        data-node-id="1:117"
-                      >
-                        <p className="leading-[38.9px]">🇯🇵 japon</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-start-3 justify-self-stretch relative row-start-1 self-center shrink-0"
-                  data-node-id="1:118"
-                  data-name="Container"
-                >
-                  <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-end pb-[0.717px] relative size-full">
-                    <div
-                      className="[word-break:break-word] flex flex-col font-inter font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#00b3ac] text-[19.45px] text-right whitespace-nowrap"
-                      data-node-id="1:119"
-                    >
-                      <p className="leading-[31.12px]">16 JUIN · 21:00</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <MatchTicker />
               <div
                 className="absolute bg-[#fefdf9] border-[#e8e6dc] border-[1.216px] border-solid h-[340.375px] left-0 overflow-clip rounded-[24.313px] top-0 w-[367.119px]"
                 data-node-id="1:120"
