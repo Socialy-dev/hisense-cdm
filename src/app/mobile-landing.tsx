@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { QuizContent } from "./quiz-content";
 import { InlineVideoSection } from "./video-player";
 import { MATCHES, getCurrentState, formatCountdown } from "./match-ticker";
@@ -25,8 +25,8 @@ export function MobileLanding() {
       <MobileTvBanner />
       <MobileProducts />
       <MobileInteractiveQuiz />
-      <MobileStadiumAerial />
       <InlineVideoSection videoId="U6xmkiknDJM" />
+      <MobileFooter />
     </div>
   );
 }
@@ -609,7 +609,31 @@ function ProductCard({
 // 7. Quiz interactif
 // =================================================================
 
+const QUIZ_DESIGN_WIDTH = 780;
+const QUIZ_DESIGN_HEIGHT = 820;
+
 function MobileInteractiveQuiz() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [quizScale, setQuizScale] = useState(0.5);
+
+  useEffect(() => {
+    function recalc() {
+      const node = wrapperRef.current;
+      if (!node) return;
+      // Largeur dispo pour le quiz = largeur du conteneur (section padding x-5 = 20px chaque côté)
+      const available = node.offsetWidth;
+      const s = Math.min(available / QUIZ_DESIGN_WIDTH, 1);
+      setQuizScale(s);
+    }
+    recalc();
+    window.addEventListener("resize", recalc);
+    window.addEventListener("orientationchange", recalc);
+    return () => {
+      window.removeEventListener("resize", recalc);
+      window.removeEventListener("orientationchange", recalc);
+    };
+  }, []);
+
   return (
     <section
       id="mobile-quiz"
@@ -623,11 +647,23 @@ function MobileInteractiveQuiz() {
           backgroundPosition: "center",
         }}
       />
-      <div className="relative">
-        {/* Mobile glass card : on garde la même UI quiz que desktop, c'est responsive */}
-        <div className="relative bg-[rgba(14,29,34,0.7)] backdrop-blur-md border border-[#00b3ac] rounded-3xl overflow-hidden">
-          {/* QuizContent fait 780x820 en desktop. On le scale pour mobile via wrapper. */}
-          <div className="quiz-mobile-wrapper">
+      <div className="relative" ref={wrapperRef}>
+        {/* Glass card scalée dynamiquement à la largeur du conteneur mobile. */}
+        <div
+          className="relative bg-[rgba(14,29,34,0.7)] backdrop-blur-md border border-[#00b3ac] rounded-3xl overflow-hidden mx-auto"
+          style={{
+            width: QUIZ_DESIGN_WIDTH * quizScale,
+            height: QUIZ_DESIGN_HEIGHT * quizScale,
+          }}
+        >
+          <div
+            style={{
+              width: QUIZ_DESIGN_WIDTH,
+              height: QUIZ_DESIGN_HEIGHT,
+              transformOrigin: "top left",
+              transform: `scale(${quizScale})`,
+            }}
+          >
             <QuizContent />
           </div>
         </div>
@@ -635,31 +671,123 @@ function MobileInteractiveQuiz() {
           Sponsor officiel · FIFA World Cup 2026™
         </p>
       </div>
-
-      <style jsx>{`
-        .quiz-mobile-wrapper {
-          width: 780px;
-          transform-origin: top left;
-          transform: scale(calc((100vw - 40px - 32px) / 780));
-          height: calc(820px * ((100vw - 40px - 32px) / 780));
-        }
-      `}</style>
     </section>
   );
 }
 
 // =================================================================
-// 8. Stadium aerial
+// 8. Footer (responsive HTML, remplace l'image stadium-aerial.png)
 // =================================================================
 
-function MobileStadiumAerial() {
+function MobileFooter() {
   return (
-    <section className="relative w-full h-[280px] overflow-hidden">
-      <img
-        src="/images/stadium-aerial.png"
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-    </section>
+    <footer className="bg-white border-t border-[#e8e6dc]">
+      {/* Logo + social */}
+      <div className="flex items-center justify-between px-6 py-6 border-b border-[#e8e6dc]">
+        <span className="font-inter font-semibold text-[#00b3ac] text-[24px] tracking-tight">
+          Hisense
+        </span>
+        <div className="flex items-center gap-3">
+          <SocialIcon label="Facebook">f</SocialIcon>
+          <SocialIcon label="X">𝕏</SocialIcon>
+          <SocialIcon label="Instagram">◎</SocialIcon>
+          <SocialIcon label="YouTube">▶</SocialIcon>
+        </div>
+      </div>
+
+      {/* Menu columns stackées */}
+      <div className="px-6 py-8 flex flex-col gap-7">
+        <FooterColumn
+          title="Téléviseurs & Audio"
+          items={["Téléviseurs", "Barres de son", "Enceinte de soirée"]}
+        />
+        <FooterColumn
+          title="Laser Home Cinema"
+          items={["Laser TV", "Laser Mini Projecteur", "Laser Cinema"]}
+        />
+        <FooterColumn
+          title="Electroménager"
+          items={[
+            "Froid",
+            "Soin du linge",
+            "Cuisson",
+            "Lave-vaisselle",
+            "Aspirateurs",
+          ]}
+        />
+        <FooterColumn title="Hisense" items={["A propos"]} />
+        <FooterColumn
+          title="Assistance"
+          items={[
+            "Contactez-nous",
+            "Conditions de garantie",
+            "Garantie 10 ans sur le moteur Inverter",
+            "Garantie sur les téléviseurs Hisense",
+          ]}
+        />
+      </div>
+
+      {/* Bottom links */}
+      <div className="bg-[#f4f3ee] px-6 py-6 flex flex-col gap-3">
+        <div className="flex items-center gap-2 text-[#16201f] text-[13px]">
+          <span className="w-5 h-5 rounded-full bg-[#00b3ac]/15 inline-flex items-center justify-center text-[10px]">
+            🌐
+          </span>
+          <span className="font-medium">International, English</span>
+        </div>
+        <div className="flex flex-col gap-2 text-[13px] text-[#16201f]/80 mt-2">
+          <a href="#">Politique de confidentialité</a>
+          <a href="#">Mentions légales</a>
+          <a href="#">Notification de conformité — EU Data Act</a>
+          <a href="#">Règles de publication des avis et commentaires</a>
+          <a href="#">Liste des réparateurs agréés</a>
+          <a href="#">Se désabonner de la newsletter</a>
+          <a href="#">Gestion du consentement</a>
+        </div>
+        <p className="text-[12px] text-[#16201f]/60 mt-3">
+          © Hisense Europe 2025
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+function FooterColumn({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div>
+      <h4 className="font-inter font-semibold text-[#16201f] text-[14px] mb-3">
+        {title}
+      </h4>
+      <ul className="flex flex-col gap-2">
+        {items.map((item) => (
+          <li key={item}>
+            <a
+              href="#"
+              className="font-inter text-[#16201f]/75 text-[14px] leading-snug"
+            >
+              {item}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function SocialIcon({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href="#"
+      aria-label={label}
+      className="w-8 h-8 rounded-full bg-[#16201f] text-white flex items-center justify-center text-[13px]"
+    >
+      {children}
+    </a>
   );
 }
