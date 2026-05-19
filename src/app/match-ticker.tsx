@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
  * Phase de groupes : 11 → 27 juin.
  */
 
-type Match = {
+export type Match = {
   utc: string; // ISO 8601 UTC
   home: { name: string; flag: string };
   away: { name: string; flag: string };
@@ -21,7 +21,7 @@ type Match = {
   city: string;
 };
 
-const MATCHES: Match[] = [
+export const MATCHES: Match[] = [
   // === 11 JUIN (JOURNÉE 1) ===
   {
     utc: "2026-06-11T19:00:00Z",
@@ -617,13 +617,10 @@ const MATCHES: Match[] = [
   },
 ];
 
-const TOURNAMENT_START_UTC = new Date(MATCHES[0].utc);
-const GROUP_STAGE_END_UTC = new Date("2026-06-28T05:00:00Z"); // ~2h après le dernier match
-
 // Durée approximative d'un match : 2h (90 min + arrêts + temps additionnel)
-const MATCH_DURATION_MS = 2 * 60 * 60 * 1000;
+export const MATCH_DURATION_MS = 2 * 60 * 60 * 1000;
 
-function getCurrentState(now: Date): {
+export function getCurrentState(now: Date): {
   match: Match | null;
   isLive: boolean;
   isOpening: boolean;
@@ -665,7 +662,7 @@ function getCurrentState(now: Date): {
   };
 }
 
-function formatCountdown(
+export function formatCountdown(
   targetMs: number,
   nowMs: number,
 ): {
