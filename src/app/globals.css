@@ -13,6 +13,18 @@ body {
   padding: 0;
   /* Pas de scroll horizontal jamais — la page est auto-scalée par ScaleWrapper */
   overflow-x: hidden;
+  /* Bloque le scroll horizontal même si du contenu déborderait temporairement */
+  max-width: 100vw;
+}
+
+html {
+  /* Évite le micro-shift quand la scrollbar verticale apparaît / disparaît */
+  scrollbar-gutter: stable;
+}
+
+body {
+  /* Garantit un fond cohérent même avant que le ScaleWrapper ait mesuré la hauteur */
+  min-height: 100vh;
 }
 
 * {
