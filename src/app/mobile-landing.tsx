@@ -551,6 +551,7 @@ function MobileProducts() {
         desc="100% BT.2020. Le stade dans votre salon."
         priceBefore="3 799€"
         price="3 499€"
+        href={EXTERNAL_LINKS.tvRgbMiniLed}
       />
       <ProductCard
         image="/images/produit-frigo.png"
@@ -559,6 +560,7 @@ function MobileProducts() {
         desc="PureFlat. NoFrost. FreshFit."
         priceBefore="1 599€"
         price="1 299€"
+        href={EXTERNAL_LINKS.fridgeFreshFit}
       />
       <ProductCard
         image="/images/produit-projecteur.png"
@@ -567,6 +569,7 @@ function MobileProducts() {
         desc="Cinéma maison. Vrai noir. Lumière laser."
         priceBefore="5 299€"
         price="4 999€"
+        href={EXTERNAL_LINKS.laserTvL9q}
       />
     </section>
   );
@@ -579,6 +582,7 @@ function ProductCard({
   desc,
   priceBefore,
   price,
+  href,
 }: {
   image: string;
   imageHeight: number;
@@ -586,6 +590,7 @@ function ProductCard({
   desc: string;
   priceBefore: string;
   price: string;
+  href: string;
 }) {
   return (
     <div className="bg-[#00b3ac] border border-[#e8e6dc] rounded-2xl p-5">
@@ -622,7 +627,9 @@ function ProductCard({
         </span>
       </div>
       <a
-        href="#"
+        href={href}
+        target="_blank"
+        rel="noreferrer"
         className="inline-flex items-center gap-1.5 text-white text-[13px]"
       >
         Découvrir

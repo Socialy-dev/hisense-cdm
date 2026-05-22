@@ -445,13 +445,13 @@ function QuizView({
             >
               <div className="text-[24px] mb-1">{opt.emoji}</div>
               <div
-                className={`text-[14px] font-bold leading-[1.3] transition-colors ${
+                className={`text-[17px] font-bold leading-[1.25] transition-colors ${
                   isSelected ? "text-[#43e5dc]" : "text-[#faf9f5]/75"
                 }`}
               >
                 {opt.label}
               </div>
-              <div className="text-[12px] text-[#faf9f5]/40 leading-[1.4]">
+              <div className="text-[13px] text-[#faf9f5]/45 leading-[1.35]">
                 {opt.sub}
               </div>
             </button>

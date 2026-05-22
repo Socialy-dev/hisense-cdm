@@ -1000,7 +1000,10 @@ export default function Page() {
                         </div>
                       </div>
                     </div>
-                    <div
+                    <a
+                      href={EXTERNAL_LINKS.tvRgbMiniLed}
+                      target="_blank"
+                      rel="noreferrer"
                       className="h-[22.39px] relative shrink-0 w-full"
                       data-node-id="1:170"
                       data-name="Link"
@@ -1022,7 +1025,7 @@ export default function Page() {
                           src={imgSvg6}
                         />
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -1120,7 +1123,10 @@ export default function Page() {
                         </div>
                       </div>
                     </div>
-                    <div
+                    <a
+                      href={EXTERNAL_LINKS.fridgeFreshFit}
+                      target="_blank"
+                      rel="noreferrer"
                       className="h-[22.39px] relative shrink-0 w-full"
                       data-node-id="1:187"
                       data-name="Link"
@@ -1142,7 +1148,7 @@ export default function Page() {
                           src={imgSvg6}
                         />
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -1240,7 +1246,10 @@ export default function Page() {
                         </div>
                       </div>
                     </div>
-                    <div
+                    <a
+                      href={EXTERNAL_LINKS.laserTvL9q}
+                      target="_blank"
+                      rel="noreferrer"
                       className="h-[22.39px] relative shrink-0 w-full"
                       data-node-id="1:204"
                       data-name="Link"
@@ -1262,7 +1271,7 @@ export default function Page() {
                           src={imgSvg6}
                         />
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>
