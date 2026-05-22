@@ -1,13 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { SECTION_IDS } from "./campaign-links";
 
 /**
  * Inline video player section :
  * - Affiche le thumbnail YouTube comme background + bouton play
  * - Au clic, swap pour une iframe YouTube en autoplay qui occupe toute la section
  */
-export function InlineVideoSection({ videoId }: { videoId: string }) {
+export function InlineVideoSection({
+  videoId,
+  id = SECTION_IDS.video,
+}: {
+  videoId: string;
+  id?: string;
+}) {
   const [playing, setPlaying] = useState(false);
 
   // Thumbnail haute résolution de la vidéo (première frame officielle)
@@ -15,6 +22,7 @@ export function InlineVideoSection({ videoId }: { videoId: string }) {
 
   return (
     <div
+      id={id}
       className="content-stretch flex h-[872px] items-center justify-center min-h-[560px] overflow-clip relative shrink-0 w-full"
       data-node-id="1:253"
       data-name="Section"

@@ -1,6 +1,9 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
+
 import { useState } from "react";
+import { EXTERNAL_LINKS } from "./campaign-links";
 
 type Scores = { P: number; C: number; T: number };
 type Option = {
@@ -23,6 +26,9 @@ type Profile = {
   product: string;
   productDesc: string;
   productEmoji: string;
+  productUrl: string;
+  productImage: string;
+  productImageAlt: string;
 };
 
 const QUESTIONS: Question[] = [
@@ -174,6 +180,9 @@ const PROFILES: Record<"P" | "C" | "T", Profile> = {
     productDesc:
       "Une projection XXL jusqu'à 120\", une image 4K lumineuse et des noirs profonds. Le stade chez vous, en grand.",
     productEmoji: "✨",
+    productUrl: EXTERNAL_LINKS.laserTvL9q,
+    productImage: "/images/quiz-product-laser.png",
+    productImageAlt: "Laser TV Hisense L9Q",
   },
   C: {
     emoji: "🥂",
@@ -184,6 +193,9 @@ const PROFILES: Record<"P" | "C" | "T", Profile> = {
     productDesc:
       "Conçu pour ceux qui reçoivent. Grande capacité, organisation intelligente, froid optimal pour que rien ne manque quand ça compte.",
     productEmoji: "🧊",
+    productUrl: EXTERNAL_LINKS.fridgeFreshFit,
+    productImage: "/images/quiz-product-fridge.png",
+    productImageAlt: "Réfrigérateur Hisense FreshFit",
   },
   T: {
     emoji: "🔍",
@@ -194,6 +206,9 @@ const PROFILES: Record<"P" | "C" | "T", Profile> = {
     productDesc:
       "Technologie MiniLED, 144 Hz, couleurs ultra-précises. Chaque détail du jeu s'affiche avec une netteté irréprochable.",
     productEmoji: "📺",
+    productUrl: EXTERNAL_LINKS.tvRgbMiniLed,
+    productImage: "/images/quiz-product-tv.png",
+    productImageAlt: "TV Hisense RGB MiniLED",
   },
 };
 
@@ -478,44 +493,66 @@ function ResultView({
 }) {
   return (
     <>
-      <div className="text-center mb-6">
-        <div className="text-[44px] mb-3">{profile.emoji}</div>
+      <div className="text-center mb-4">
+        <div className="text-[34px] mb-2">{profile.emoji}</div>
         <div className="text-[11px] tracking-[2px] uppercase text-[#00b3ac] font-semibold mb-3">
           Votre profil
         </div>
         <h2
-          className="text-white text-[26px] font-extrabold uppercase leading-[1.25] tracking-[-0.3px] mb-2"
+          className="text-white text-[24px] font-extrabold uppercase leading-[1.2] tracking-[-0.3px] mb-1.5"
           style={{ fontFamily: "var(--font-barlow), sans-serif" }}
         >
           {profile.label}
         </h2>
-        <p className="text-[15px] text-[#00b3ac] font-semibold mb-3 italic">
+        <p className="text-[14px] text-[#00b3ac] font-semibold mb-2 italic">
           "{profile.tagline}"
         </p>
-        <p className="text-[14px] text-[#faf9f5]/65 leading-[1.65] text-left">
+        <p className="text-[13px] text-[#faf9f5]/65 leading-[1.5] text-left overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical]">
           {profile.desc}
         </p>
       </div>
-      <div className="h-px bg-white/[0.08] my-7" />
-      <div className="mb-6">
+      <div className="h-px bg-white/[0.08] my-4" />
+      <div className="mb-4">
         <div className="text-[12px] text-[#faf9f5]/50 tracking-[1px] uppercase mb-3">
           Le produit fait pour vous
         </div>
-        <div className="flex items-start gap-3.5 p-4 rounded-[10px] bg-[#00b3ac]/10 border border-[#00b3ac]/30">
-          <div className="text-[32px] mt-0.5">{profile.productEmoji}</div>
-          <div>
-            <div className="text-white text-[16px] font-bold mb-1.5">
-              {profile.product}
-            </div>
-            <div className="text-[13px] text-[#faf9f5]/40 leading-[1.55]">
-              {profile.productDesc}
+        <a
+          href={profile.productUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="group block rounded-[18px] overflow-hidden bg-[#00b3ac]/10 border border-[#00b3ac]/30 hover:border-[#43e5dc]/80 transition-colors"
+        >
+          <div className="relative h-[150px] overflow-hidden">
+            <img
+              src={profile.productImage}
+              alt={profile.productImageAlt}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#061215] via-[#061215]/25 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-4">
+              <div className="flex items-end justify-between gap-4">
+                <div>
+                  <div className="text-[11px] tracking-[1.6px] uppercase text-[#43e5dc] font-semibold mb-1">
+                    {profile.productEmoji} Recommandation Hisense
+                  </div>
+                  <div className="text-white text-[17px] font-bold leading-tight">
+                    {profile.product}
+                  </div>
+                </div>
+                <div className="shrink-0 rounded-full bg-[#00b3ac] px-4 py-2 text-[12px] font-bold text-[#071316]">
+                  Voir le produit →
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+          <div className="px-4 py-2.5 text-[12px] text-[#faf9f5]/55 leading-[1.45]">
+            {profile.productDesc}
+          </div>
+        </a>
       </div>
-      <div className="h-px bg-white/[0.08] my-7" />
+      <div className="h-px bg-white/[0.08] my-4" />
       <div className="mb-4">
-        <div className="text-[13px] text-[#faf9f5]/65 mb-4 leading-[1.5]">
+        <div className="text-[13px] text-[#faf9f5]/65 mb-3 leading-[1.45]">
           Laissez votre e-mail pour recevoir plus d'infos sur ce produit.
         </div>
         <input
@@ -523,12 +560,12 @@ function ResultView({
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}
           placeholder="vous@domaine.fr"
-          className="w-full bg-white/5 border-[1.5px] border-white/15 rounded-[10px] px-4 py-3.5 text-[15px] text-[#faf9f5] placeholder:text-[#faf9f5]/30 focus:outline-none focus:border-[#00b3ac] transition-colors mb-3"
+          className="w-full bg-white/5 border-[1.5px] border-white/15 rounded-[10px] px-4 py-3 text-[15px] text-[#faf9f5] placeholder:text-[#faf9f5]/30 focus:outline-none focus:border-[#00b3ac] transition-colors mb-3"
         />
         <button
           onClick={onSubmit}
           disabled={!email}
-          className="w-full bg-[#00b3ac] text-[#0a1519] rounded-full px-8 py-4 text-[15px] font-bold tracking-[0.3px] hover:opacity-85 disabled:opacity-35 disabled:cursor-not-allowed transition-opacity"
+          className="w-full bg-[#00b3ac] text-[#0a1519] rounded-full px-8 py-3.5 text-[15px] font-bold tracking-[0.3px] hover:opacity-85 disabled:opacity-35 disabled:cursor-not-allowed transition-opacity"
         >
           Je veux en savoir plus →
         </button>

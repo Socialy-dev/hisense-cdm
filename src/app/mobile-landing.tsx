@@ -5,13 +5,15 @@ import { useEffect, useRef, useState } from "react";
 import { QuizContent } from "./quiz-content";
 import { InlineVideoSection } from "./video-player";
 import { MATCHES, getCurrentState, formatCountdown } from "./match-ticker";
+import { EXTERNAL_LINKS, SECTION_IDS } from "./campaign-links";
+import { ScrollLink } from "./scroll-link";
 
 /**
  * Version mobile de la landing Hisense Coupe du Monde.
  * Même contenu, même copy, mêmes images, même branding que la version 1920px
  * — réorganisé en single-column mobile-first avec scroll vertical naturel.
  *
- * Sections : Header → Hero → Cards (Atelier, 300€, 2 places, Quiz, MPP)
+ * Sections : Header → Hero → Cards (Atelier, offres Hisense, Quiz, MPP)
  * → Match ticker → Newsletter → TV banner → Produits (TV, Frigo, Projecteur)
  * → Quiz interactif → Stadium aerial → Video
  */
@@ -97,13 +99,21 @@ function MobileHero() {
 
         {/* CTAs */}
         <div className="flex flex-col gap-4">
-          <button className="bg-[#00b3ac] text-[#0e1a1f] font-inter text-[15px] tracking-[0.075px] rounded-full px-6 py-3.5 w-full">
+          <ScrollLink
+            targetId={SECTION_IDS.products}
+            offset={64}
+            className="bg-[#00b3ac] text-[#0e1a1f] font-inter text-[15px] tracking-[0.075px] rounded-full px-6 py-3.5 w-full text-center"
+          >
             Découvrir la gamme officielle
-          </button>
-          <button className="flex items-center justify-center gap-2 text-[#faf9f5] text-[15px] underline-offset-4 underline decoration-white/50">
+          </ScrollLink>
+          <ScrollLink
+            targetId={SECTION_IDS.video}
+            offset={64}
+            className="flex items-center justify-center gap-2 text-[#faf9f5] text-[15px] underline-offset-4 underline decoration-white/50"
+          >
             Voir le teaser
             <img src="/svg/arrow-1.svg" alt="" className="w-3.5 h-3.5" />
-          </button>
+          </ScrollLink>
         </div>
       </div>
     </section>
@@ -111,7 +121,7 @@ function MobileHero() {
 }
 
 // =================================================================
-// 3. Cards section (Atelier, 300€, 2 places, Quiz, MPP) + Ticker
+// 3. Cards section (Atelier, offres Hisense, Quiz, MPP) + Ticker
 // =================================================================
 
 function MobileCardsSection() {
@@ -120,7 +130,7 @@ function MobileCardsSection() {
       {/* Featured : Atelier des Lumières */}
       <CardAtelier />
 
-      {/* 2x2 grid : 300€ + 2 places + MPP + Quiz */}
+      {/* 2x2 grid : offres Hisense + MPP + Quiz */}
       <Card300Euros />
       <Card2Places />
       <CardMPP />
@@ -168,17 +178,22 @@ function CardAtelier() {
 function Card300Euros() {
   return (
     <div className="bg-[#fefdf9] border border-[#e8e6dc] rounded-2xl p-6">
+      <p className="font-inter font-medium text-[#00b3ac] text-[16px] leading-none tracking-[1.2px] uppercase">
+        Jusqu&apos;à
+      </p>
       <p className="font-inter font-medium text-[#00b3ac] text-[72px] leading-none tracking-tight">
-        300€
+        500€
       </p>
       <p className="font-inter text-[#16201f] text-[12px] tracking-[1.2px] uppercase mt-2">
         Remboursés
       </p>
       <p className="font-inter text-[#2d3534] text-[16px] leading-snug mt-4">
-        Sur la gamme officielle, du 30/03 au 27/04.
+        Sur la gamme officielle du 28/04/2026 au 23/06/2026.
       </p>
       <a
-        href="#"
+        href={EXTERNAL_LINKS.cashbackOffer}
+        target="_blank"
+        rel="noreferrer"
         className="inline-flex items-center gap-1.5 text-[#00b3ac] text-[15px] mt-4"
       >
         Voir l&apos;offre
@@ -192,14 +207,18 @@ function Card2Places() {
   return (
     <div className="bg-[#fefdf9] border border-[#e8e6dc] rounded-2xl p-6">
       <h3 className="font-inter font-medium text-[#00b3ac] text-[32px] leading-tight uppercase tracking-tight">
-        2 places
-        <br />à gagner
+        Jeu 100%
+        <br />
+        remboursé
       </h3>
       <p className="font-inter text-[#2d3534] text-[16px] leading-snug mt-4">
-        Pour le match de l&apos;Équipe de France à New-York.
+        Tentez de gagner le remboursement de votre produit du 28/04/2026 au
+        23/06/2026.
       </p>
       <a
-        href="#"
+        href={EXTERNAL_LINKS.fullRefundGame}
+        target="_blank"
+        rel="noreferrer"
         className="inline-flex items-center gap-1.5 text-[#00b3ac] text-[15px] mt-4"
       >
         Tenter ma chance
@@ -233,7 +252,9 @@ function CardMPP() {
             Tentez de gagner une TV
           </h3>
           <a
-            href="#"
+            href={EXTERNAL_LINKS.mppChallenge}
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex items-center gap-1.5 text-white text-[15px]"
           >
             Découvrir
@@ -260,13 +281,14 @@ function CardQuiz() {
           <br />
           spécial Coupe du Monde
         </h3>
-        <a
-          href="#mobile-quiz"
+        <ScrollLink
+          targetId={SECTION_IDS.quiz}
+          offset={64}
           className="inline-flex items-center gap-1.5 text-white text-[15px]"
         >
           Découvrir
           <img src="/svg/arrow-link-3.svg" alt="" className="w-3.5 h-3.5" />
-        </a>
+        </ScrollLink>
       </div>
     </div>
   );
@@ -498,11 +520,13 @@ function MobileTvBanner() {
           TV RGB MiniLED 4K | 180Hz VRR 75&quot; SÉRIE UR9
         </p>
         <div className="flex items-center gap-4">
-          <button className="bg-transparent border border-[#17d1ba] text-white rounded-full px-6 py-2 text-[14px]">
+          <a
+            href={EXTERNAL_LINKS.stadiumExperienceProduct}
+            target="_blank"
+            rel="noreferrer"
+            className="bg-transparent border border-[#17d1ba] text-white rounded-full px-6 py-2 text-[14px]"
+          >
             Plus
-          </button>
-          <a href="#" className="text-white text-[14px] underline">
-            Voir tout
           </a>
         </div>
       </div>
@@ -516,7 +540,10 @@ function MobileTvBanner() {
 
 function MobileProducts() {
   return (
-    <section className="bg-[#e8e6dc] px-5 py-14 flex flex-col gap-5">
+    <section
+      id={SECTION_IDS.products}
+      className="bg-[#e8e6dc] px-5 py-14 flex flex-col gap-5"
+    >
       <ProductCard
         image="/images/produit-tv.png"
         imageHeight={260}
@@ -636,7 +663,7 @@ function MobileInteractiveQuiz() {
 
   return (
     <section
-      id="mobile-quiz"
+      id={SECTION_IDS.quiz}
       className="relative bg-[#0e1a1f] px-5 py-14 overflow-hidden"
     >
       <div

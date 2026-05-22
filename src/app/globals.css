@@ -20,6 +20,7 @@ body {
 html {
   /* Évite le micro-shift quand la scrollbar verticale apparaît / disparaît */
   scrollbar-gutter: stable;
+  scroll-behavior: smooth;
 }
 
 body {

@@ -9,6 +9,8 @@ import { ScaleWrapper } from "./scale-wrapper";
 import { QuizContent } from "./quiz-content";
 import { InlineVideoSection } from "./video-player";
 import { MatchTicker } from "./match-ticker";
+import { EXTERNAL_LINKS, SECTION_IDS } from "./campaign-links";
+import { ScrollHashHandler, ScrollLink } from "./scroll-link";
 
 // Local asset paths (téléchargés depuis Figma)
 const imgRectangle3 = "/images/hero-rect3.png";
@@ -38,7 +40,9 @@ const imgSvg7 = "/svg/play-icon.svg";
 
 export default function Page() {
   return (
-    <ScaleWrapper>
+    <>
+      <ScrollHashHandler />
+      <ScaleWrapper>
       <div
         className="bg-[#faf9f5] content-stretch flex flex-col items-start relative w-[1920px]"
         data-node-id="1:3"
@@ -95,7 +99,8 @@ export default function Page() {
                   data-node-id="1:15"
                   data-name="Container"
                 >
-                  <div
+                  <ScrollLink
+                    targetId={SECTION_IDS.products}
                     className="absolute bg-[#00b3ac] h-[48px] left-0 rounded-[999px] top-0 w-[257px]"
                     data-node-id="1:16"
                     data-name="Button"
@@ -108,8 +113,9 @@ export default function Page() {
                         Découvrir la gamme officielle
                       </p>
                     </div>
-                  </div>
-                  <div
+                  </ScrollLink>
+                  <ScrollLink
+                    targetId={SECTION_IDS.video}
                     className="absolute h-[32px] left-[281px] top-[8px] w-[113px]"
                     data-node-id="1:18"
                     data-name="Button"
@@ -142,7 +148,7 @@ export default function Page() {
                       data-node-id="1:23"
                       data-name="Horizontal Divider"
                     />
-                  </div>
+                  </ScrollLink>
                 </div>
               </div>
               <div
@@ -283,10 +289,16 @@ export default function Page() {
                     data-name="Container"
                   >
                     <div
+                      className="[word-break:break-word] flex flex-col font-inter font-medium justify-center leading-[0] not-italic relative shrink-0 text-[#00b3ac] text-[27px] tracking-[0.5106px] uppercase whitespace-nowrap"
+                      data-node-id="1:47"
+                    >
+                      <p className="leading-[28px]">JUSQU&apos;À</p>
+                    </div>
+                    <div
                       className="[word-break:break-word] flex flex-col font-inter font-medium justify-center leading-[0] not-italic relative shrink-0 text-[#00b3ac] text-[102.112px] tracking-[0.5106px] uppercase whitespace-nowrap"
                       data-node-id="1:47"
                     >
-                      <p className="leading-[97.007px]">300€</p>
+                      <p className="leading-[97.007px]">500€</p>
                     </div>
                     <div
                       className="content-stretch flex flex-col items-start relative shrink-0"
@@ -307,7 +319,10 @@ export default function Page() {
                   data-node-id="1:50"
                   data-name="Margin"
                 >
-                  <button
+                  <a
+                    href={EXTERNAL_LINKS.cashbackOffer}
+                    target="_blank"
+                    rel="noreferrer"
                     className="absolute block cursor-pointer h-[27.218px] left-[-0.61px] right-[0.61px] top-[36.6px]"
                     data-node-id="1:51"
                     data-name="Link"
@@ -315,8 +330,6 @@ export default function Page() {
                     <div
                       className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-inter font-normal h-[28px] justify-center leading-[0] left-[0.35px] not-italic text-[#00b3ac] text-[17.019px] text-left top-[calc(50%-0.43px)] w-[83px]"
                       data-node-id="1:52"
-                      role="button"
-                      tabIndex={0}
                     >
                       <p className="leading-[27.23px]">{`Voir l'offre`}</p>
                     </div>
@@ -331,7 +344,7 @@ export default function Page() {
                         src={imgSvg2}
                       />
                     </div>
-                  </button>
+                  </a>
                 </div>
                 <div
                   className="absolute content-stretch flex flex-col items-start left-[33.43px] pb-[0.912px] right-[34.64px] top-[220.03px]"
@@ -339,13 +352,15 @@ export default function Page() {
                   data-name="Container"
                 >
                   <div
-                    className="[word-break:break-word] flex flex-col font-inter font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#2d3534] text-[22.23px] w-[296px]"
+                    className="[word-break:break-word] flex flex-col font-inter font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#2d3534] text-[20px] w-[296px]"
                     data-node-id="1:56"
                   >
-                    <p className="leading-[27.352px] mb-0">
-                      Sur la gamme officielle,
+                    <p className="leading-[24px] mb-0">
+                      Sur la gamme officielle
                     </p>
-                    <p className="leading-[27.352px]">du 30/03 au 27/04.</p>
+                    <p className="leading-[24px]">
+                      du 28/04/2026 au 23/06/2026.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -506,8 +521,8 @@ export default function Page() {
                         className="[word-break:break-word] flex flex-col font-inter font-medium justify-center leading-[0] not-italic relative shrink-0 text-[#00b3ac] text-[46.194px] tracking-[0.231px] uppercase w-full"
                         data-node-id="1:87"
                       >
-                        <p className="leading-[46.194px] mb-0">2 PLACES</p>
-                        <p className="leading-[46.194px]">À GAGNER</p>
+                        <p className="leading-[46.194px] mb-0">JEU 100%</p>
+                        <p className="leading-[46.194px]">REMBOURSÉ</p>
                       </div>
                     </div>
                   </div>
@@ -524,16 +539,26 @@ export default function Page() {
                       data-name="Container"
                     >
                       <div
-                        className="[word-break:break-word] flex flex-col font-inter font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#2d3534] text-[22.23px] w-[297px]"
+                        className="[word-break:break-word] flex flex-col font-inter font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#2d3534] text-[17px] w-[297px]"
                         data-node-id="1:90"
                       >
-                        <p className="leading-[27.352px] mb-0">{`Pour le match de l'Équipe de France`}</p>
-                        <p className="leading-[27.352px]">à New-York.</p>
+                        <p className="leading-[21px] mb-0">
+                          Tentez de gagner le
+                        </p>
+                        <p className="leading-[21px] mb-0">
+                          remboursement de votre produit
+                        </p>
+                        <p className="leading-[21px]">
+                          du 28/04/2026 au 23/06/2026.
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div
+                <a
+                  href={EXTERNAL_LINKS.fullRefundGame}
+                  target="_blank"
+                  rel="noreferrer"
                   className="h-[27.218px] relative shrink-0 w-full"
                   data-node-id="1:91"
                   data-name="Link"
@@ -557,7 +582,7 @@ export default function Page() {
                       />
                     </div>
                   </div>
-                </div>
+                </a>
               </div>
               <div
                 className="absolute border-[#e8e6dc] border-[1.216px] border-solid h-[340.375px] left-[1188.88px] overflow-clip rounded-[24.313px] top-[369.55px] w-[367.119px]"
@@ -605,7 +630,8 @@ export default function Page() {
                         <p className="leading-[29px]">SPÉCIAL COUPE DU MONDE</p>
                       </div>
                     </div>
-                    <button
+                    <ScrollLink
+                      targetId={SECTION_IDS.quiz}
                       className="block cursor-pointer h-[27.218px] relative shrink-0 w-[103.292px]"
                       data-node-id="1:104"
                       data-name="Link"
@@ -613,8 +639,6 @@ export default function Page() {
                       <div
                         className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-inter font-normal h-[27.959px] justify-center leading-[0] left-0 not-italic text-[16.02px] text-left text-white top-[calc(50%-0.84px)] w-[79.465px]"
                         data-node-id="1:105"
-                        role="button"
-                        tabIndex={0}
                       >
                         <p className="leading-[27.23px]">Découvrir</p>
                       </div>
@@ -629,7 +653,7 @@ export default function Page() {
                           src={imgSvg4}
                         />
                       </div>
-                    </button>
+                    </ScrollLink>
                   </div>
                 </div>
               </div>
@@ -692,7 +716,10 @@ export default function Page() {
                         </p>
                       </div>
                     </div>
-                    <button
+                    <a
+                      href={EXTERNAL_LINKS.mppChallenge}
+                      target="_blank"
+                      rel="noreferrer"
                       className="block cursor-pointer h-[27.218px] relative shrink-0 w-[103.292px]"
                       data-node-id="1:130"
                       data-name="Link"
@@ -700,8 +727,6 @@ export default function Page() {
                       <div
                         className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-inter font-normal h-[27.959px] justify-center leading-[0] left-0 not-italic text-[15.803px] text-left text-white top-[calc(50%-0.84px)] w-[79.465px]"
                         data-node-id="1:131"
-                        role="button"
-                        tabIndex={0}
                       >
                         <p className="leading-[27.23px]">Découvrir</p>
                       </div>
@@ -716,7 +741,7 @@ export default function Page() {
                           src={imgSvg5}
                         />
                       </div>
-                    </button>
+                    </a>
                   </div>
                 </div>
                 <div
@@ -871,6 +896,7 @@ export default function Page() {
             </div>
           </div>
           <div
+            id={SECTION_IDS.products}
             className="-translate-x-1/2 absolute bg-[#e8e6dc] content-stretch flex flex-col h-[740px] items-start left-1/2 px-[320px] py-[120px] top-[3049px] w-[1920px]"
             data-node-id="1:155"
             data-name="Section"
@@ -1369,7 +1395,10 @@ export default function Page() {
             >
               Hisense Stadium Experience
             </p>
-            <div
+            <a
+              href={EXTERNAL_LINKS.stadiumExperienceProduct}
+              target="_blank"
+              rel="noreferrer"
               className="absolute bg-[rgba(0,0,0,0)] border-[#17d1ba] border-[2.003px] border-solid h-[42.733px] left-[66.77px] overflow-clip rounded-[21.367px] top-[753.18px] w-[114.846px]"
               data-node-id="1:224"
               data-name="Btn Plus"
@@ -1380,15 +1409,10 @@ export default function Page() {
               >
                 <p className="leading-[normal]">Plus</p>
               </div>
-            </div>
-            <p
-              className="[word-break:break-word] absolute font-inter font-normal leading-[normal] left-[197.64px] not-italic text-[17.36px] text-white top-[761.19px] whitespace-nowrap"
-              data-node-id="1:226"
-            >
-              Voir tout
-            </p>
+            </a>
           </div>
           <div
+            id={SECTION_IDS.quiz}
             className="-translate-x-1/2 absolute bg-[#0e1a1f] h-[1097px] left-1/2 overflow-clip top-[3789px] w-[1920px]"
             data-node-id="1:227"
             data-name="01 – Intro"
@@ -1424,5 +1448,6 @@ export default function Page() {
         <InlineVideoSection videoId="U6xmkiknDJM" />
       </div>
     </ScaleWrapper>
+    </>
   );
 }
